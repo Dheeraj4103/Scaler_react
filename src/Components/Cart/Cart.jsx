@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import CartContent from "./CartContent";
 import styles from "./Cart.module.css"
 import { useDispatch, useSelector } from "react-redux";
-import { hidecart, removefromcart, showcart } from "../../store";
+import { hidecart, removefromcart, showcart } from "../../Store/cart";
 
 function Cart() {
     // const [active, setActive] = useState(false);
     const dispatch = useDispatch();
     const active = useSelector(state => {
-        return state.isCartOpen;
+        return state.cart.isCartOpen;
     })
 
     function toggleActive() {
@@ -38,4 +38,4 @@ function Cart() {
     }
 }
 
-export default Cart;
+export default (Cart);

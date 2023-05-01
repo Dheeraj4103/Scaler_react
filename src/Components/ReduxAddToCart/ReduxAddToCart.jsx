@@ -2,12 +2,12 @@ import React, { memo, useContext, useState } from "react";
 import styles from '../AddToCart/AddToCart.module.css'
 import CartContext from "../../contexts/CartContext";
 import { useDispatch, useSelector } from "react-redux";
-import { addtocart, removefromcart } from "../../store";
+import { addtocart, removefromcart } from "../../Store/cart";
 
 function ReduxAddToCart({ product, className }) {
     const dispatch = useDispatch();
     const quantity = useSelector(state => {
-        return state.items[product.id]?.quantity || 0;
+        return state.cart.items[product.id]?.quantity || 0;
     });
 
     function increment() {

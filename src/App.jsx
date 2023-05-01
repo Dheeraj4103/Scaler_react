@@ -5,8 +5,10 @@ import Cart from "./Components/Cart";
 // import CartContext from "./contexts/CartContext";
 import styles from './App.module.css';
 import { useDispatch, useSelector } from "react-redux";
+import store1 from './Store/index';
+import Categories from "./Components/Categories";
 // import { addtocart, removefromcart } from "./store";
-
+console.log('multiple reducer',store1.getState());
 
 
 
@@ -26,7 +28,7 @@ function App() {
     // const [cart, setCart] = useState({});
     const dispatch = useDispatch();
     const cart = useSelector(state => {
-        return state.items;
+        return state.cart.items;
     })
 
     console.log('App rendered');
@@ -43,9 +45,12 @@ function App() {
 
     return (
         
+        <div >
+            <Categories />
             <div className={styles.content}>
                 <ProductList className={styles.main} />
                 <Cart cart={cart} className={styles.cart} />
+                </div>
             </div>
     );
 }

@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 function CartContent() {
 
     const cart = useSelector(state => {
-        return state.items;
+        return state.cart.items;
     })
     const cartList = Object.values(cart);
     console.log("CartContent rendered", cartList);
