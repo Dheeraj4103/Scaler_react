@@ -14,11 +14,12 @@
     "react-redux": "^8.0.5",
     "react-scripts": "5.0.1",
     "redux": "^4.2.1",
+    "redux-thunk": "^2.4.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "predeploy": "npm run build",
-   "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d build",
     "start-client": "react-scripts start",
     "start-server": "json-server --watch mock_server/db.json --port 3001",
     "start": "npm-run-all --parallel start-client start-server",

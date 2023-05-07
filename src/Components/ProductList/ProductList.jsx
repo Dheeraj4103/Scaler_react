@@ -3,6 +3,7 @@ import React, { memo, useEffect, useState } from "react";
 import ProductCard from "../ProductCard";
 
 import styles from './ProductList.module.css'
+import { useSelector } from "react-redux";
 
 const _products = [
     {
@@ -31,23 +32,8 @@ const _products = [
     }
 ]
 
-async function getAPICall(callback) {
-    console.log('API called');
-    // const response = fetch("http://localhost:3001/products");
-    // response.then((data) => {
-    //     console.log("Mock Successful", data);
-    // }).catch((error) => {
-    //     console.log("Error", error);
-    // })
-    // console.log(data);
 
-    const response = await fetch("http://localhost:3001/products");
-    const data = await response.json();
-    console.log(data);
-    setTimeout(() => {
-        callback(data);
-    }, 2000);
-};
+
 
 
 
@@ -59,19 +45,31 @@ function ProductList() {
         products: [],
         isLoading: true
     });
+
+    const selectedCategoryId = useSelector(state => state.categories.selectedCategoryId);
     
     useEffect(() => {
         // console.log('API call Started', isLoading, products);
-        getAPICall((result) => {
-            const newState = {
-                products: result,
-                isLoading: false
-            }
-            setstate(newState);
-        });
-    }, []);
+        async function getAPICall(callback) {
+            try {
+                const response = await fetch(`http://localhost:3001/categories/${selectedCategoryId}/products`);
+                const data = await response.json();
+                setstate({
+                    products: data,
+                    isLoading: false
+                });
+            } catch (e) {
+                console.log(e);
+           }
+        };
+        getAPICall();
+    }, [selectedCategoryId]);
 
-    if (state.isLoading) {
+    if (!selectedCategoryId) {
+        return <div>Selct A Category</div>
+    }
+
+    else if (state.isLoading) {
         return <div>Loading....</div>
     } else {
 

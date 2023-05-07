@@ -1,6 +1,9 @@
+import React, {memo} from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { categoriesFailed, categoriesLoaded, categoriesLoading } from "../../Store/categories";
+import { loadingCategories } from "../../Store/categories";
+import CategoryLink from "../CategoryLink/CategoryLink";
+import styles from './Categories.module.css';
 
 
 function Categories() {
@@ -9,19 +12,9 @@ function Categories() {
     const categories = useSelector(state => state.categories);
 
     useEffect(() => {
-        async function loadingCategories() {
-            dispatch(categoriesLoading());
-
-            try {
-                const response = await fetch("http://localhost:3001/categories");
-                const data = await response.json();
-                dispatch(categoriesLoaded(data));
-            } 
-            catch (error) {
-                dispatch(categoriesFailed(error));
-            }
-        }
-        loadingCategories(); 
+        
+        // loadingCategories(); 
+        dispatch(loadingCategories());
     }, [])
     
     if (categories.isLoading) {
@@ -32,10 +25,10 @@ function Categories() {
     }
     else {
         return (
-            <ul>
+            <ul className={styles.list}>
                 {
                     categories.categories.map(category => {
-                       return <li key={category.id}>{category.name}</li>
+                       return <CategoryLink key={category.id} category={category}/>
                     })
                 }
             </ul>
@@ -43,4 +36,4 @@ function Categories() {
     }
 }
 
-export default Categories;
+export default memo(Categories);
