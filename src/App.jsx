@@ -4,11 +4,22 @@ import ProductList from "./Components/ProductList";
 import Cart from "./Components/Cart";
 // import CartContext from "./contexts/CartContext";
 import styles from './App.module.css';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import store1 from './Store/index';
 import Categories from "./Components/Categories";
+import { Routes, Route } from 'react-router-dom';
+
+import CartPage from "./Pages/CartPage/CartPage";
+import ProductsPage from "./Pages/ProductsPage";
+
+import NotFoundPage from "./Pages/NotFoundPage";
+
 // import { addtocart, removefromcart } from "./store";
 console.log('multiple reducer',store1.getState());
+
+
+
+
 
 
 
@@ -27,9 +38,7 @@ function App() {
 
     // const [cart, setCart] = useState({});
     const dispatch = useDispatch();
-    const cart = useSelector(state => {
-        return state.cart.items;
-    })
+    
 
     console.log('App rendered');
 
@@ -45,14 +54,22 @@ function App() {
 
     return (
         
-        <div >
-            <Categories />
-            <div className={styles.content}>
-                <ProductList className={styles.main} />
-                <Cart cart={cart} className={styles.cart} />
-                </div>
-            </div>
-    );
+            <Routes>
+            <Route exact={ true } path="/" Component={ProductsPage}/>
+            <Route exact={true} path="/cart" Component={CartPage} />
+            <Route  path="/categories/:categoryId" Component={ProductsPage} />
+            <Route  Component={NotFoundPage} />
+            </Routes>
+           
+
+        // <div>
+        //     <CartPage></CartPage>
+        //     <ProductsPage/>
+        // </div>
+    
+        
+                );
+                
 }
 
 export default App

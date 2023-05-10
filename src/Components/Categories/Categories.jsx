@@ -4,12 +4,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadingCategories } from "../../Store/categories";
 import CategoryLink from "../CategoryLink/CategoryLink";
 import styles from './Categories.module.css';
+import Cart from "../Cart";
 
 
 function Categories() {
 
     const dispatch = useDispatch();
     const categories = useSelector(state => state.categories);
+    const cart = useSelector(state => {
+        return state.cart.items;
+    })
 
     useEffect(() => {
         
@@ -31,6 +35,8 @@ function Categories() {
                        return <CategoryLink key={category.id} category={category}/>
                     })
                 }
+                <Cart></Cart>
+                
             </ul>
         );
     }

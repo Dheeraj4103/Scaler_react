@@ -7,26 +7,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadingProducts } from "../../Store/Products";
 
 
-function ProductList() {
+function ProductList({ categoryId }) {
 
     console.log('ProductList rendered');
 
     const dispatch = useDispatch();
     const products = useSelector(state => state.productList);
 
-    const selectedCategoryId = useSelector(state => state.categories.selectedCategoryId);
+    
     
     useEffect(() => {
-        dispatch(loadingProducts(selectedCategoryId))
-    }, [selectedCategoryId]);
+        dispatch(loadingProducts(categoryId))
+    }, [categoryId, dispatch]);
 
-    if (!selectedCategoryId) {
-        return <div>Selct A Category</div>
+    if (!categoryId) {
+        return <div>Select A Category</div>
     }
 
     else if (products.isLoading) {
         return <div>Loading....</div>
-    } else {
+    } else if (products.products.length > 0){
 
         return (
             <div className={styles.list}>
@@ -41,7 +41,11 @@ function ProductList() {
                 )}
             </div>
         );
-    };
+    } else {
+        return (
+            <div>No products found. Choose a different Category</div>
+        )
+    }
 };
 
 export default memo(ProductList);
