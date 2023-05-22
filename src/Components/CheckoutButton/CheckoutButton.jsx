@@ -1,7 +1,7 @@
 import React, { memo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
-import { placeOrder } from "../../Store/cart";
+import { checkoutSuccess, makeCartEmpty, placeOrder } from "../../Store/cart";
 import styles from './CheckoutButton.module.css';
 
 
@@ -17,6 +17,7 @@ function CheckoutButton() {
         if (isSubmitSuccess) {
             console.log("in isSubmitSuccess");
             navigate('/orders')
+            dispatch(checkoutSuccess());
         }
     }, [isSubmitSuccess]);
 

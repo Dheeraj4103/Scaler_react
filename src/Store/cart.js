@@ -7,6 +7,13 @@ const hideCart = "Hide_Cart";
 const Checkout_Init = "Checkout_Init";
 const Checkout_Done = "Checkout_Done";
 const Checkout_Error = "Checkout_Error";
+const Checkout_Success_Navigation = "Checkout_Success_Navigation";
+
+export function checkoutSuccess() {
+  return {
+    type: Checkout_Success_Navigation,
+  };
+}
 
 export function addtocart(product) {
   return {
@@ -63,7 +70,14 @@ export function placeOrder() {
       });
 
       console.log("ok in cart.js");
-      dispatch({ type: Checkout_Done });
+      if (response.ok) {
+        dispatch({ type: Checkout_Done });
+      } else {
+        dispatch({
+          type: Checkout_Error,
+          payload: new Error(response.statusText),
+        });
+      }
     } catch (error) {
       dispatch({ type: Checkout_Error, payload: error });
     }
@@ -149,6 +163,9 @@ function cartReducer(
       };
     case "Checkout_Error":
       return { ...state, isSubmitting: false, submitError: action.payload };
+
+    case "Checkout_Success_Navigation":
+      return { ...state, isSubmitSuccess: false, items: {} };
 
     default:
       return state;
