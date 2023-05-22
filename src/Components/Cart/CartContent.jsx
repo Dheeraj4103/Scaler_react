@@ -4,6 +4,7 @@ import styles from './Cart.module.css'
 // import AddToCart from "../AddToCart/AddToCart";
 import ReduxAddToCart from "../ReduxAddToCart";
 import { useSelector } from "react-redux";
+import CheckoutButton from "../CheckoutButton";
 
 function CartContent() {
 
@@ -50,6 +51,7 @@ function CartContent() {
                 < div >
                     <h1>Total:- {total}</h1>
                 </div>
+                <CheckoutButton/>
             </div>
         );
     }

@@ -57,6 +57,7 @@ function categoriesReducer(
     error: null,
     categories: [],
     selectedCategoryId: null,
+    
   },
   action
 ) {

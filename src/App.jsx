@@ -13,6 +13,7 @@ import CartPage from "./Pages/CartPage/CartPage";
 import ProductsPage from "./Pages/ProductsPage";
 
 import NotFoundPage from "./Pages/NotFoundPage";
+import OrderPage from "./Components/OrderPage";
 
 // import { addtocart, removefromcart } from "./store";
 console.log('multiple reducer',store1.getState());
@@ -57,6 +58,7 @@ function App() {
             <Routes>
             <Route exact={ true } path="/" Component={ProductsPage}/>
             <Route exact={true} path="/cart" Component={CartPage} />
+            <Route exact={true} path="/orders" Component={OrderPage} />
             <Route  path="/categories/:categoryId" Component={ProductsPage} />
             <Route  Component={NotFoundPage} />
             </Routes>
