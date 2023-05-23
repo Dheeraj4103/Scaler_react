@@ -1,0 +1,21 @@
+.root {
+    border: 1px solid white;
+    max-width: 200px;
+    padding: 10px;
+}
+
+.heading {
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.title {
+    flex: 1 0 0;
+    margin-right: 10px; 
+}
+
+.content {
+
+}

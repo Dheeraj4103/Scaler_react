@@ -86,7 +86,7 @@ export function placeOrder() {
 
 function cartReducer(
   state = {
-    items: {},
+    items: JSON.parse(localStorage.getItem("cart") || "{}"),
     isCartOpen: false,
     isSubmitting: false,
     isSubmitSuccess: false,
