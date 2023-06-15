@@ -23,11 +23,11 @@ function AddToCart({ product, className }) {
         )
     } else {
         return (
-            <div>
+            <>
             <button onClick={decrement} className={styles.btn}>-</button>
             <span>{quantity}</span>
             <button onClick={increment} className={styles.btn}>+</button>
-            </div>
+            </>
         );
     }
 };

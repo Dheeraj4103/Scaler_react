@@ -24,7 +24,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "start-client": "react-scripts start",
-    "start-server": "json-server --watch mock_server/db.json --port 3001",
+    "start-server": "node ./mock_server/index.js",
     "start": "npm-run-all --parallel start-client start-server",
     "build": "react-scripts build",
     "test": "react-scripts test",
