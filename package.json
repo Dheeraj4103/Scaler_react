@@ -23,12 +23,15 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "start-client": "react-scripts start",
-    "start-server": "node ./mock_server/index.js",
-    "start": "npm-run-all --parallel start-client start-server",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "install-server": "cd mock_server && npm install",
+    "start-server": "cd mock_server && node index.js",
+    "install-client": "npm install",
+    "build-client": "npm run build",
+    "start-client": "npm run start"
   },
   "eslintConfig": {
     "extends": [

@@ -1,58 +1,46 @@
-const db = require("./connection");
-const express = require("express");
-const mongodb = require("mongodb");
-const cors = require('cors');
+import express from "express";
+import bodyParser from "body-parser";
+import multer from "multer";
+import dotenv from "dotenv";
+import mongoose from "mongoose";
+import cors from "cors";
+import helmet from "helmet";
+import morgan from "morgan";
+import path from "path";
+import { fileURLToPath } from "url";
+import categoriesRoutes from "./routes/categories.js";
+import ordersRoutes from "./routes/orders.js";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+dotenv.config();
 
 const app = express();
+
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cors())
 
-async function getCollection(collection_name) {
-  const database = await db();
-  const collection = database.collection(collection_name);
-  return collection;
-}
+app.use(helmet());
 
-app.get("/categories", async (req, res) => {
-  try {
-    const categories = await getCollection("categories");
-    const category = await categories.find().toArray();
-    res.status(200).json(category);
-  } catch (error) {
-    res.status(400).send({ message: error.message });
-  }
-});
-app.get("/categories/:categoryId/products", async (req, res) => {
-  try {
-    const product = await getCollection("product");
-    const { categoryId } = req.params;
-    const products = await product
-      .find({ categoryId: parseInt(categoryId) })
-      .toArray();
-    res.status(200).json(products);
-  } catch (error) {
-    res.status(400).send({ message: error.message });
-  }
-});
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
-app.post("/orders", async (req, res) => {
-  try {
-    const orders = await getCollection("orders");
-    const { products, subTotal, discount, tax, total } = req.body;
-    const order = await orders.insertOne({
-      products,
-      subTotal,
-      discount,
-      tax,
-      total,
-    });
-    res.status(200).json(order);
-  } catch (error) {
-    res.status(400).send({ message: error.message });
-  }
-});
+app.use(morgan("common"));
 
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`Server port ${PORT}`));
+app.use(bodyParser.json({ limit: "30mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+
+app.use(cors());
+
+const PORT = process.env.PORT || 6001;
+
+mongoose
+  .connect(process.env.MONGO_URL)
+  .then(() => {
+    app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
+  })
+  .catch((error) => {
+    console.log(`${error} did not connect .... `);
+  });
+
+app.use("/categories", categoriesRoutes);
+app.use("/orders", ordersRoutes);
