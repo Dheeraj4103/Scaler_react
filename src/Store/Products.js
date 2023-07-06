@@ -40,7 +40,7 @@ export function loadingProducts(selectedCategoryId) {
 
     try {
       const response = await fetch(
-        `http://localhost:3001/categories/products/${selectedCategoryId}/`
+        `https://cart-api-30j8.onrender.com/categories/products/${selectedCategoryId}/`
       );
       if (response.ok) {
         const data = await response.json();

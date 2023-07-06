@@ -57,7 +57,7 @@ export function placeOrder() {
     try {
       const myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
-      const response = await fetch("http://localhost:3001/orders/", {
+      const response = await fetch("https://cart-api-30j8.onrender.com/orders/", {
         method: "POST",
         body: JSON.stringify({
           products: itemsList,

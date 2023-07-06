@@ -38,7 +38,7 @@ export function loadingCategories() {
     dispatch(categoriesLoading());
 
     try {
-      const response = await fetch("http://localhost:3001/categories");
+      const response = await fetch("https://cart-api-30j8.onrender.com/categories");
       if (response.ok) {
         const data = await response.json();
         dispatch(categoriesLoaded(data));
